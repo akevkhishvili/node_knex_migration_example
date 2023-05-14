@@ -189,4 +189,4 @@ start server
 node-dev index.js
 ```
 
-video link: 
+video link: https://youtu.be/x4wfwFi3P2o
