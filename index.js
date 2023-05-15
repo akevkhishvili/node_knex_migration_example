@@ -1,13 +1,18 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+require('dotenv').config();
+const dbHost = process.env.DB_HOST
+const dbUser = process.env.DB_USER
+const dbPassword = process.env.DB_PASSWORD
+const dbName = process.env.DB_NAME
 const knex = require('knex')({
     client: 'mysql',
     connection: {
-        host: 'localhost',
-        user: 'root',
-        password: '',
-        database: 'node_test'
+        host: dbHost,
+        user: dbUser,
+        password: dbPassword,
+        database: dbName
     }
 });
 
@@ -20,7 +25,7 @@ app.get('/users', async (req, res) => {
 });
 
 // Use body-parser middleware to parse request bodies
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 
@@ -35,7 +40,7 @@ app.post('/store', async (req, res) => {
         });
 
         // Return a success message
-        res.json({ message: 'User created successfully' });
+        res.json({message: 'User created successfully'});
     } catch (error) {
         console.error(error);
         res.status(500).send('An error occurred');
