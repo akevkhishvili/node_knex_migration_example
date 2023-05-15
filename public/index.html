@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>test</title>
+</head>
+<body>
+<div id="app">
+
+</div>
+<script>
+    const xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function() {
+        let app = document.querySelector('#app')
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                const users = JSON.parse(xhr.responseText);
+                users.forEach(user => {
+                    app.insertAdjacentHTML("afterbegin",`<div>${user.email}</div>`)
+                });
+
+            } else {
+                console.log('Error: ' + xhr.status);
+            }
+        }
+    };
+
+    xhr.open('GET', 'http://localhost:3000/users');
+    xhr.send();
+</script>
+</body>
+</html>
